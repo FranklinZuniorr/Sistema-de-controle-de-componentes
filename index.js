@@ -13,25 +13,25 @@ n();
 
 function n(){
     if(quantidade >= 10){
-        prg = "";
-        console.log("10 é o limite de peças!");
-        console.log("---------------------------------------------");
-        console.log("Relatório de peças:");
-        console.log("---------------------------------------------");
-        rel = "Relatório de peças:\n";
-        rel = rel + ("---------------------------------------------\n");
-        for(x = 0; x < quantidade; x++){
-        rel = rel + "Peça: " + y-- + "\n";
-        console.log("Peça: " + y++);
-        console.log("Nome: " + pecas[x].nome);
-        rel = rel + "Nome: " + pecas[x].nome + "\n";
-        console.log("Peso: " + pecas[x].peso) + " Gramas";
-        rel = rel + "Peso: " + pecas[x].peso + " Gramas" + "\n";
-        console.log("---------------------------------------------");
-        rel = rel + "---------------------------------------------\n";
-        }
-        log();
-        }
+    prg = "";
+    console.log("10 é o limite de peças!");
+    console.log("---------------------------------------------");
+    console.log("Relatório de peças:");
+    console.log("---------------------------------------------");
+    rel = "Relatório de peças:\n";
+    rel = rel + ("---------------------------------------------\n");
+    for(x = 0; x < quantidade; x++){
+    rel = rel + "Peça: " + y-- + "\n";
+    console.log("Peça: " + y++);
+    console.log("Nome: " + pecas[x].nome);
+    rel = rel + "Nome: " + pecas[x].nome + "\n";
+    console.log("Peso: " + pecas[x].peso) + " Gramas";
+    rel = rel + "Peso: " + pecas[x].peso + " Gramas" + "\n";
+    console.log("---------------------------------------------");
+    rel = rel + "---------------------------------------------\n";
+    }
+    log();
+    }
 
     nome = prompt("Qual o nome da peça? ");
     console.log("Adicionou: " + nome);
