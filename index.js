@@ -1,147 +1,113 @@
-var status = 0;
-var datatxt = "";
-var attd = new Date();
-var dia = attd.getDay();
-var mes = attd.getMonth();
-var ano = attd.getFullYear();
-var dados = [];
+var pecas = [];
+var quantidade = 0;
+var y = 1;
 
-console.log("Sistema de controle de eventos:");
+console.log("Sistema de controle de peças:");
 
-var prompt = require("prompt-sync")();
+const prompt = require("prompt-sync")();
 
 const fs = require('fs');
 
+n();
 
-d();
 
-function d(){
-    d1a = prompt("Qual será o dia do evento? ");
-    console.log("Adicionou: " + d1a);
+function n(){
+    if(quantidade >= 10){
+        prg = "";
+        console.log("10 é o limite de peças!");
+        console.log("---------------------------------------------");
+        console.log("Relatório de peças:");
+        console.log("---------------------------------------------");
+        rel = "Relatório de peças:\n";
+        rel = rel + ("---------------------------------------------\n");
+        for(x = 0; x < quantidade; x++){
+        rel = rel + "Peça: " + y-- + "\n";
+        console.log("Peça: " + y++);
+        console.log("Nome: " + pecas[x].nome);
+        rel = rel + "Nome: " + pecas[x].nome + "\n";
+        console.log("Peso: " + pecas[x].peso) + " Gramas";
+        rel = rel + "Peso: " + pecas[x].peso + " Gramas" + "\n";
+        console.log("---------------------------------------------");
+        rel = rel + "---------------------------------------------\n";
+        }
+        log();
+        }
 
-    status = 1;
+    nome = prompt("Qual o nome da peça? ");
+    console.log("Adicionou: " + nome);
 
-    if(d1a <= dia && status == 1){
-    console.log("Adicione um dia posterior ao dia atual!");
-    d();
+    if(nome.length <= 3){
+    console.log("Adicione um nome com mais de 3 caracteres!");
+    n();
     }
 
-    if(d1a > dia && status == 1){
-    m();
-    status = 0;
+    else if(nome.length > 3){
+    pecas[quantidade] = {nome};
+    p();
     }
-}
-
-function m(){
-    m3s = prompt("Qual será o mês do evento? ");
-    console.log("Adicionou: " + m3s);
-
-    status = 1;
-
-    if(m3s < mes && status == 1){
-    console.log("Adicione um mês posterior ou igual ao mês atual! ");
-    m();
     }
 
-    if(m3s >= mes && status == 1){
-    a();
-    status = 0;
-    }
-}
+function p(){
+    peso = prompt("Qual o peso em gramas da peça? ");
+    console.log("Adicionou: " + peso);
 
-function a(){
-    an0 = prompt("Qual será o ano do evento? ");
-    console.log("Adicionou: " + an0);
-
-    status = 1;
-
-    if(an0 < ano && status == 1){
-    console.log("Adicione um ano posterior ou igual ao ano atual! ");
-    a();    
+    if(peso <= 100){
+    console.log("Adicione um peso maior que 100gramas! ");
+    p();
     }
 
-    if(an0 >= ano && status == 1){
-    datatxt = "" + d1a + "/" + m3s + "/" + an0;
-    status = 0;
-    id();
+    else if(peso > 100 && quantidade <= 10){
+    pecas[quantidade] = {nome, peso};
+    quantidade++;
+    console.log("Adicionou: " + quantidade)
+    pergunta();
     }
-}
-
-function id(){
- 
-    idade = prompt("Qual a sua idade?" );
-    console.log("Adicionou: " + idade);
- 
-    status = 1;
- 
-    if(idade < 18 && status == 1 ){
-    console.log("É necessário possuir 18 anos para prosseguir!");
-    id();
-    }
- 
-    if(idade >= 18 && status == 1){
-    pp();
-    status = 0;
     }
 
-}
+function pergunta(){
 
-function pp(){
-    participantes = prompt("Serão quantos participantes? ");
-    console.log("Adicionou: " + participantes);
+    prg = prompt("Deseja adicionar mais peças? (s ou n)");
 
-    status = 1;
-
-    if(participantes > 100 && status == 1){
-    console.log("Não é possível adicionar mais de 100 participantes!");
-    pp();
+    if(prg == "s" || prg == "S"){
+    prg = "";
+    n();  
     }
 
-    if(participantes <= 100 && status == 1){
-    status = 0;
-    pl();
+    if(prg == "n" || prg == "N"){
+    prg = "";
+    console.log("---------------------------------------------");
+    console.log("Relatório de peças:");
+    console.log("---------------------------------------------");
+    rel = "Relatório de peças:\n";
+    rel = rel + ("---------------------------------------------\n");
+    for(x = 0; x < quantidade; x++){
+    rel = rel + "Peça: " + y + "\n";
+    console.log("Peça: " + y++);
+    console.log("Nome: " + pecas[x].nome);
+    rel = rel + "Nome: " + pecas[x].nome + "\n";
+    console.log("Peso: " + pecas[x].peso) + " Gramas";
+    rel = rel + "Peso: " + pecas[x].peso + " Gramas" + "\n";
+    console.log("---------------------------------------------");
+    rel = rel + "---------------------------------------------\n";
     }
-}
-
-function pl(){
-    palestrantes = prompt("Serão quantos palestrantes? ");
-    console.log("Adicionou: " + palestrantes);
-
-    status = 1;
-
-    if(palestrantes > 5 && status == 1){
-    console.log("Não é possível adicionar mais de 5 palestrantes!");
-    pl();
-    }
-    
-    if(palestrantes <= 5 && status == 1){
-    status = 0;
     log();
     }
-}
+    }
 
 function log(){
 
-   dados = ["Cadastro concluído:", "Data: " + datatxt, "Participantes: " + participantes, "Palestrantes: " + palestrantes];
+    dt = new Date;
+    hs = dt.getHours() + "." + dt.getMinutes() + "Hs";
+      
+    const data = rel;
+    fs.writeFileSync(hs + ".txt", data);
+    console.log("Relatório do cadastro adicionado à pasta do sistema!");
+      
+    prompt("Sistema finalizado!");
+    }
+     
 
-   var medir = dados.length;
-   
-   for(var x = 0; x < medir; x++){
-   console.log(dados[x]);
-   }
 
-   dados = ["Cadastro concluído: *", "Data: " + datatxt + "*", "Participantes: " + participantes + "*", "Palestrantes: " + palestrantes];
 
-   dadosrefinados = dados[0].replace("*", "\n");
-   dadosrefinados = dadosrefinados + dados[1].replace("*", "\n");
-   dadosrefinados = dadosrefinados + dados[2].replace("*", "\n");
-   dadosrefinados = dadosrefinados + dados[3].replace("*", "\n");
-   datarefinada = "" + d1a + "-" + m3s + "-" + an0;
 
-   const data = dadosrefinados;
-   fs.writeFileSync(datarefinada + ".txt", data);
-   console.log("Relatório do cadastro adicionado a pasta do sistema!");
-
-   prompt("Sistema finalizado!"); 
-}
 
